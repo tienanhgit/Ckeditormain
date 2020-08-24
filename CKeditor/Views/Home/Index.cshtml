@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<h3>Su dung CkFider va CkEditor</h3>
+@using (Html.BeginForm("Detail", "Home", FormMethod.Post))
+{
+    <div>
+        Hinh anh : @Html.TextBox("Picture")
+        <input type="button"  id="Browse" value="Duyet Anh"/>
+
+    </div>
+    <div>
+        <h4>Mo ta chi tiet</h4>
+        @Html.TextArea("Detail")
+
+        <script type="text/javascript">
+            CKEDITOR.replace("Detail");
+
+        </script><br />
+        <input type="submit" value="LUU"/>
+
+    </div>
+}
+
+
+
+<script>
+    $("#Browse").click(function () {
+
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (fileUrl) {
+            fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            $("#Picture").val(fileUrl);
+
+        };
+        finder.popup();
+    })
+</script>
